@@ -1,3 +1,25 @@
 page-home {
 
+    h3 {
+        text-align: center;
+        color: aliceblue;      
+    }
+
+    img {
+        width: 100px;
+        align-self: center;
+        margin: auto;
+        display: block;
+    }
+
+    ion-content.getBkgdImg {
+        background-image: url('../../assets/imgs/tela-inicial-2.jpg');
+        background-repeat: no-repeat;
+        background-size:cover;
+    }
+    
+    ion-item.getTransp {
+        background-color: transparent;
+    }
+
 }
