@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ProfessionalService } from '../../services/domain/professional.service';
 
 /**
  * Generated class for the ProfessionalsPage page.
@@ -15,10 +16,24 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProfessionalsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public professionalService: ProfessionalService
+    ) {
   }
 
   ionViewDidLoad() {
+    this.professionalService.findAll( )
+      .subscribe(response => {
+        console.log( response );
+      },
+      error  => {
+        console.log( error );
+      }
+    
+    
+    );
     console.log('ionViewDidLoad ProfessionalsPage');
   }
 
