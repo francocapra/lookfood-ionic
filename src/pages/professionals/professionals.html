@@ -12,13 +12,27 @@
 
 
 <ion-content padding>
-  <ion-list>
-    <button ion-item  *ngFor="let professional of professionals" > 
-      <ion-thumbnail item-start>
-        <img src="img/thumbnail-totoro.png">
-      </ion-thumbnail>
-      <h2>{{ professional.name}}</h2>
+  <ion-grid no-padding fixed>
+    <ion-row >
+      <ion-slides pager >     
+          <ion-slide  *ngFor="let professional of professionals" >  
+            <button ion-thumbnail >
+              <img src="{{bucketURL}}/cat{{professional.id}}.jpg">
+            </button>
+            <p>{{ professional.name }}</p>
+          </ion-slide>      
+      </ion-slides>
+    </ion-row>
 
-    </button>
-  </ion-list>
+    <ion-row>
+      <ion-slides pager>     
+          <ion-slide  *ngFor="let professional of professionals" > 
+            <button ion-thumbnail >
+              <img src="{{bucketURL}}/cat{{professional.id}}.jpg">
+            </button>           
+            <p>{{ professional.name }}</p>
+          </ion-slide>    
+      </ion-slides>
+    </ion-row>
+  </ion-grid>
 </ion-content>

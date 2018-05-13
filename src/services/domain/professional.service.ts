@@ -10,8 +10,8 @@ export class ProfessionalService {
     constructor(public http: HttpClient ){
     }
 
-    findAll( ) : Observable<ProfessionalDTO> {
-        return this.http.get<ProfessionalDTO>(`${API_CONFIG.baseURL}/professionals`);
+    findAll( ) : Observable<ProfessionalDTO[]> {
+        return this.http.get<ProfessionalDTO[]>(`${API_CONFIG.baseURL}/professionals`);
     }
 
 

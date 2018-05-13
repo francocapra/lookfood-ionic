@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProfessionalService } from '../../services/domain/professional.service';
 import { ProfessionalDTO } from '../../models/professional.dto';
+import { API_CONFIG } from '../../config/api.config';
 
 /**
  * Generated class for the ProfessionalsPage page.
@@ -16,6 +17,8 @@ import { ProfessionalDTO } from '../../models/professional.dto';
   templateUrl: 'professionals.html',
 })
 export class ProfessionalsPage {
+
+  bucketURL: string = API_CONFIG.bucketBaseURL;
 
   professionals: ProfessionalDTO[];
 
