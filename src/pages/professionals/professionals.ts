@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProfessionalService } from '../../services/domain/professional.service';
+import { ProfessionalDTO } from '../../models/professional.dto';
 
 /**
  * Generated class for the ProfessionalsPage page.
@@ -16,17 +17,18 @@ import { ProfessionalService } from '../../services/domain/professional.service'
 })
 export class ProfessionalsPage {
 
+  professionals: ProfessionalDTO[];
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public professionalService: ProfessionalService
-    ) {
+    public professionalService: ProfessionalService ) {
   }
 
   ionViewDidLoad() {
     this.professionalService.findAll( )
       .subscribe(response => {
-        console.log( response );
+        this.professionals =  response ;
       },
       error  => {
         console.log( error );
