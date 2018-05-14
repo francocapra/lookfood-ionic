@@ -33,9 +33,7 @@ export class ProfessionalsPage {
       .subscribe(response => {
         this.professionals =  response ;
       },
-      error  => {
-        console.log( error );
-      }
+      error  => { }
     
     
     );
