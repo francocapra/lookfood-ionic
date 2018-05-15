@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage, MenuController } from 'ionic-angular';
 import { CredentialDTO } from './../../models/credential.dto';
+import { AuthService } from '../../services/auth.service';
 
 /**
  * CONTROLLER: Ex: Tem a classe HoemPage, que corresponde a VIEW, arquivo home.html
@@ -18,7 +19,11 @@ export class HomePage {
   };
     
 
-  constructor(public navCtrl: NavController, public menu: MenuController) {
+  constructor(
+    public navCtrl: NavController, 
+    public menu: MenuController,
+    public auth: AuthService
+  ) {
 
   }
   
@@ -37,7 +42,14 @@ export class HomePage {
   } 
 
   login() {
-    console.log(this.credential);
-    this.navCtrl.setRoot('ProfessionalsPage');
+    
+    /*console.log(this.credential);*/
+    
+    this.auth.authenticate(this.credential)
+      .subscribe(response => {
+        console.log(response.headers.get('Authorization')); 
+        this.navCtrl.setRoot('ProfessionalsPage');
+      }, 
+      error => {} );         
   }
 }
