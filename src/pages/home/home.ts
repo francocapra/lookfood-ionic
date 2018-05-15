@@ -1,10 +1,10 @@
+import { Component } from '@angular/core';
+import { NavController, IonicPage, MenuController } from 'ionic-angular';
+import { CredentialDTO } from './../../models/credential.dto';
+
 /**
  * CONTROLLER: Ex: Tem a classe HoemPage, que corresponde a VIEW, arquivo home.html
  */
-
-import { Component } from '@angular/core';
-import { NavController, IonicPage, MenuController } from 'ionic-angular';
-
 @IonicPage() //Incluído depois!! Esse DECORATOR serve para dizer que esta classe é uma página, e vou poder refênciar a esta classe na format de String entre aspas ""
 @Component({   //Design Pattner Decorator: Define que esta classe é o controller
   selector: 'page-home',
@@ -12,10 +12,20 @@ import { NavController, IonicPage, MenuController } from 'ionic-angular';
 })
 export class HomePage {
 
+  credential : CredentialDTO = {
+    email : "",
+    password: ""
+  };
+    
+
   constructor(public navCtrl: NavController, public menu: MenuController) {
 
   }
   
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad HomePage');
+  }
+
   ionViewWillEnter() { 
     console.log("ionViewWillEnter");
     this.menu.swipeEnable(false); 
@@ -27,6 +37,7 @@ export class HomePage {
   } 
 
   login() {
+    console.log(this.credential);
     this.navCtrl.setRoot('ProfessionalsPage');
   }
 }
