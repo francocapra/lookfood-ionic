@@ -4,9 +4,12 @@ import { API_CONFIG } from './../config/api.config';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { CredentialDTO } from "../models/credential.dto";
+import { JwtHelper } from "angular2-jwt";
 
 @Injectable()
 export class AuthService {
+
+    jwtHelper : JwtHelper = new JwtHelper();
 
     constructor (
         public http: HttpClient,
@@ -26,7 +29,11 @@ export class AuthService {
 
     successfulLogin(authorizationValue: string){
         let jwtoken = authorizationValue.substring(7); //Retirar a palavra Bearer
-        let usr : LocalUser = { token: jwtoken }
+        let usr : LocalUser = { 
+            token: jwtoken ,
+            password: this.jwtHelper.decodeToken(jwtoken).sub 
+        }
+
         this.storage.setLocalUser(usr);
     }   
 
