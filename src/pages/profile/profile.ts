@@ -1,3 +1,6 @@
+import { API_CONFIG } from './../../config/api.config';
+import { PartnerService } from './../../services/partner.service';
+import { PartnerDTO } from './../../models/partner.dto';
 import { StorageService } from './../../services/storage.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -16,20 +19,33 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProfilePage {
 
-  email: string; 
+  partner: PartnerDTO; 
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public storage: StorageService  
+    public storage: StorageService,
+    public partnerService: PartnerService   
   ) {
   }
 
   ionViewDidLoad() {
     let localUser  = this.storage.getLocalUser();
     if (localUser && localUser.email){
-      this.email = localUser.email;
+      this.partnerService.findByEmail(localUser.email)
+      .subscribe(response =>{
+        this.partner = response;
+        //buscar imagem
+      },
+      error=> { });
     }
   }
 
+  getImageIfExists() {
+    this.partnerService.getImageFromBucket(this.partner.id)
+    .subscribe(response => {
+      this.partner.imageURL = `${API_CONFIG.bucketBaseURL}/partner${this.partner.id}.jpg`;
+    },
+    error => {});
+  }
 }

@@ -11,6 +11,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ProfessionalService } from '../services/domain/professional.service';
 import { ErrorInterceptor } from '../interceptors/error.interceptor';
 import { AuthService } from './../services/auth.service';
+import { PartnerService } from '../services/partner.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AuthService } from './../services/auth.service';
     ProfessionalService,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     AuthService,
-    StorageService
+    StorageService,
+    PartnerService
   ]
 })
 export class AppModule {}

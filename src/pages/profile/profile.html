@@ -17,5 +17,9 @@
 
 
 <ion-content padding>
-{{ email }}
+  <ion-avatar>
+    <img [src]="partner?.imageURL || 'assets/imgs/avatar-blank.png'" class="circle" >
+  </ion-avatar>
+  <h2 text-center>{{partner?.name}}</h2>
+  <p text-center>{{partner?.email}}</p>
 </ion-content>
