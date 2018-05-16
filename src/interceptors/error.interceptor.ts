@@ -1,3 +1,4 @@
+import { StorageService } from './../services/storage.service';
 import { Injectable } from "@angular/core";
 import {
   HttpEvent,
@@ -11,36 +12,40 @@ import "rxjs/add/operator/catch";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor() {}
-
+  constructor(public storage: StorageService) {}
+  
   intercept( req: HttpRequest<any>, next: HttpHandler ): Observable<HttpEvent<any>> {
-    console.log("intercepted request ... ");
-
-    // Clone the request to add the new header.
-    const authReq = req.clone({
-      headers: req.headers.set("headerName", "headerValue")
-    });
-
-    console.log("Sending request with new header now ...");
-
-    //send the newly created request
-    return next.handle(authReq).catch((error, caught) => {
-      //intercept the respons error and displace it to the console
-      console.log("Error Occurred: ");
-      
+    console.log("Error intercepted request ... ");
+    
+    return next.handle(req)
+    .catch((error, caught) => {
+      //intercept the respons error and displace it to the console      
       let errorObj = error;
       if (errorObj.error) {
-          errorObj = errorObj.error;
+        errorObj = errorObj.error;
       }
-
+      
       if (!errorObj.status) {
-          errorObj = JSON.parse(errorObj); 
+        errorObj = JSON.parse(errorObj); 
       }
-
+      
       console.log( errorObj );
+      
+      switch (errorObj.status) {
+        case 403:
+        this.handle403();
+        break;
+        
+        default:
+        break;
+      }
       
       //return the error to the method that called it
       return Observable.throw(errorObj);
     }) as any;
+  }
+  
+  handle403(): any {
+    this.storage.setLocalUser(null);
   }
 }
