@@ -27,6 +27,16 @@ export class AuthService {
                     })        
     }
 
+    refreshToken(){
+        return this.http.post(
+                    `${API_CONFIG.baseURL}/auth/refresh_token`,
+                    {},
+                    {
+                        observe: 'response',
+                        responseType: 'text'                
+                    })        
+    }
+
     successfulLogin(authorizationValue: string){
         let jwtoken = authorizationValue.substring(7); //Retirar a palavra Bearer
         let usr : LocalUser = { 

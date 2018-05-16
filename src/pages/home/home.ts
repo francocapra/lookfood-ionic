@@ -41,10 +41,16 @@ export class HomePage {
     this.menu.swipeEnable(true); 
   } 
 
+  ionViewDidEnter(){
+    this.auth.refreshToken()
+      .subscribe(response => {
+        this.auth.successfulLogin(response.headers.get('Authorization')); 
+        this.navCtrl.setRoot('ProfessionalsPage');
+      }, 
+      error => {} );            
+  }
+
   login() {
-    
-    /*console.log(this.credential);*/
-    
     this.auth.authenticate(this.credential)
       .subscribe(response => {
         this.auth.successfulLogin(response.headers.get('Authorization')); 
