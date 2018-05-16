@@ -35,7 +35,7 @@ export class ProfilePage {
       this.partnerService.findByEmail(localUser.email)
       .subscribe(response =>{
         this.partner = response;
-        //buscar imagem
+        this.getImageIfExists();
       },
       error=> { });
     }
