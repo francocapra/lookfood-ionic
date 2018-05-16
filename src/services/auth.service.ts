@@ -31,7 +31,7 @@ export class AuthService {
         let jwtoken = authorizationValue.substring(7); //Retirar a palavra Bearer
         let usr : LocalUser = { 
             token: jwtoken ,
-            password: this.jwtHelper.decodeToken(jwtoken).sub 
+            email: this.jwtHelper.decodeToken(jwtoken).sub 
         }
 
         this.storage.setLocalUser(usr);
