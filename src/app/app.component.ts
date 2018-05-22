@@ -1,28 +1,36 @@
-import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { AuthService } from './../services/auth.service';
+import { Component, ViewChild } from "@angular/core";
+import { Nav, Platform } from "ionic-angular";
+import { StatusBar } from "@ionic-native/status-bar";
+import { SplashScreen } from "@ionic-native/splash-screen";
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: "app.html"
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   //rootPage: any = HomePage;  //Declarado com o tipo Controllador da página agora abaixo!!
-  rootPage: string = "HomePage"; 
+  rootPage: string = "HomePage";
 
-  pages: Array<{title: string, component: string}>;
+  pages: Array<{ title: string; component: string }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    public auth: AuthService
+
+  ) {
+
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Profile', component: "ProfilePage" },
-      { title: 'Professionals', component: "ProfessionalsPage" }
+      { title: "Profile", component: "ProfilePage" },
+      { title: "Professionals", component: "ProfessionalsPage" },
+      { title: "Logout", component: "" }
     ];
-
   }
 
   initializeApp() {
@@ -34,9 +42,16 @@ export class MyApp {
     });
   }
 
-  openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+  openPage(page: { title: string; component: string }) {
+    switch (page.title) {
+      case "Logout":
+        this.auth.logout();
+        this.nav.setRoot('HomePage');
+        break;
+
+      default:
+        this.nav.setRoot(page.component);      
+        break;
+    }
   }
 }

@@ -14,7 +14,7 @@
 <ion-content padding>
   <ion-grid>
     <ion-row >
-      <ion-slides pager >     
+      <ion-slides pager=true slidesPerView=2>     
           <ion-slide  *ngFor="let professional of professionals" >  
             <button ion-thumbnail >
               <img src="{{bucketURL}}/cat{{professional.id}}.jpg">
@@ -25,7 +25,7 @@
     </ion-row>
 
     <ion-row>
-      <ion-slides pager>     
+      <ion-slides pager=true slidesPerView=2>    
           <ion-slide  *ngFor="let professional of professionals" > 
             <button ion-thumbnail >
               <img src="{{bucketURL}}/cat{{professional.id}}.jpg">
